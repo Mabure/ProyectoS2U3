@@ -3,53 +3,56 @@
 
 int main(){
 	int koy = 1;
-	int pos, caco, prod[10][2];	bool PExistir[10];
-
+	int pos, caco, prod[10][2];	bool PExistir[10] = {false, false, false, false, false, false, false, false, false, false};
 
 	printf("ALMACEN\n");
-	printf("Cuando quiera dejar de ingresar productos ingrese una posicion no disponible");							
+	printf("Cuando quiera dejar de ingresar productos, ingrese una posiscion no disponible");							
+/*GOTO SELECTPOS*/		SelectPos:
 
-	do{
-		while(1){
-/*GOTO SELECTPOS*/SelectPos:
+	printf("\nSeleccione la posicion donde se encontrara su producto (0-9) \n");
+	scanf("%i", &pos);
 
-			printf("Seleccione la posicion donde se encontrara su producto (0-9) \n");
-			scanf("%i", &pos);
-			if(pos < 0 || pos > 9){
-				goto AlmacenExit;
-			}
-			else if(PExistir[pos] == false){
-	/*GOTO SUS*/SUS:
+	if(pos < 0 || pos > 9){
+		goto AlmacenExit;
+	}
 
-				printf("Cuanto valdra su producto?:  ");
-				scanf("%i", &caco);
+	if(PExistir[pos] == false){
+/*GOTO SUS*/			SUS:
 
-				prod[pos][0] = caco;
+		printf("Cuanto valdra su producto?:  ");
+		scanf("%i", &cost);
 
-				printf("Cuanto de este producto tiene?:  ");
-				scanf("%i", &caco);
+		prod[pos][0] = cost;
 
-				prod[pos][1] = caco;
+		printf("Cuanto de este producto tiene?:  ");
+		scanf("%i", &cant);
 
-				PExistir[pos] = true;
-			}
-			else{
-				printf("Esta posicion esta siendo ocupada por otro producto, Decea sustituarla?\n 	seleccione 1 para sustituir o  0 para escoger otra posicion\n ");
-				scanf("%i", &koy);
-			}
-			if(koy == 0){
-				goto SelectPos;
-			}
-			else if(koy == 1){
-				goto SUS;
-			}
+		prod[pos][1] = cant;
 
-		}
-		AlmacenExit:
-
-		printf("seleccione 1 para continuar o 0 para salir\n");
+		PExistir[pos] = true;
+	}
+	else{
+		printf("Esta posicion esta siendo ocupada por otro producto, Decea sustituarla?\n 	seleccione 0 para sustituir o  1 para escoger otra posicion\n ");
 		scanf("%i", &koy);
-	}while(koy != 0);
-		
+	}
+
+	if(koy == 0){
+		goto SUS;
+	}
+	else{
+		goto SelectPos;
+	}
+
+	goto SelectPos;
+
+/*GOTO 	ALMACENEXIT*/			AlmacenExit:
+	printf("\nEstas seguro? \n");
+	printf("Seleccione 1 para volver a ingresar productos o 0 para salir\n");
+	scanf("%i", &koy);
+
+	if(koy != 0){
+		goto SelectPos;
+	}
+
 	return 0;
 }
